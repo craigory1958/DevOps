@@ -18,7 +18,7 @@
 	gitRepos_="RetroShield_6502 SBC6502 VMK6502 XA"
 
 	
-	#echo ">gitScriptWorker.sh" "$gitProject_" "$gitCmd_" "$gitMode_" "$gitProjectBase_" "$gitRepos_"
+	echo ">gitScriptWorker.sh" "$gitProject_" "$gitCmd_" "$gitMode_" "$gitProjectBase_" "$gitRepos_"
 	bash "gitScriptWorker.sh" "$gitProject_" "$gitCmd_" "$gitMode_" "$gitProjectBase_" "$gitRepos_"
 		
 			

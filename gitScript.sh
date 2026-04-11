@@ -25,38 +25,42 @@
         done
 	fi
 
-	
-	if [[ -z "$gitCmd_" ]]; then
-	
-	    gitCmd_Default="M"
+
+	if [[ -n "$gitProject" ]]; then
+
+		if [[ -z "$gitCmd_" ]]; then
 		
-	    echo ""
-	    echo "[M] Merge"
-	    echo "[S] Stage"
-	    echo "[D] Deploy"
-	    read -p "Command [$gitCmd_Default]: " gitCmd
-	
-    	if [[ -z "$gitCmd" ]]; then gitCmd="$gitCmd_Default"; fi
-    	if [[ "${gitCmd^^}" == "M" ]]; then gitCmd_="MERGE"; fi
-    	if [[ "${gitCmd^^}" == "S" ]]; then gitCmd_="STAGE"; fi
-    	if [[ "${gitCmd^^}" == "D" ]]; then gitCmd_="DEPLOY"; fi
-	fi
+			gitCmd_Default="M"
+			
+			echo ""
+			echo "[M] Merge"
+			echo "[S] Stage"
+			echo "[D] Deploy"
+			read -p "Command [$gitCmd_Default]: " gitCmd
 		
-	
-	if [[ -z "$gitMode_" ]]; then
-	
-	    gitMode_Default="P"
+			if [[ -z "$gitCmd" ]]; then gitCmd="$gitCmd_Default"; fi
+			if [[ "${gitCmd^^}" == "M" ]]; then gitCmd_="MERGE"; fi
+			if [[ "${gitCmd^^}" == "S" ]]; then gitCmd_="STAGE"; fi
+			if [[ "${gitCmd^^}" == "D" ]]; then gitCmd_="DEPLOY"; fi
+		fi
+			
 		
-	    echo ""
-	    echo "[P] Purge"
-	    echo "[O] Overwrite"
-	    read -p "Mode [$gitMode_Default]: " gitMode
-	
-    	if [[ -z "$gitMode" ]]; then gitMode="$gitMode_Default"; fi
-    	if [[ "${gitMode^^}" == "P" ]]; then gitMode_="PURGE"; fi
-    	if [[ "${gitMode^^}" == "O" ]]; then gitMode_="OVERWRITE"; fi
+		if [[ -z "$gitMode_" ]]; then
+		
+			gitMode_Default="P"
+			
+			echo ""
+			echo "[P] Purge"
+			echo "[O] Overwrite"
+			read -p "Mode [$gitMode_Default]: " gitMode
+		
+			if [[ -z "$gitMode" ]]; then gitMode="$gitMode_Default"; fi
+			if [[ "${gitMode^^}" == "P" ]]; then gitMode_="PURGE"; fi
+			if [[ "${gitMode^^}" == "O" ]]; then gitMode_="OVERWRITE"; fi
+		fi
+
+		
+		echo ">gitScript_$gitProject_.sh" "$gitProject_" "$gitCmd_" "$gitMode_"
+		bash "gitScript_$gitProject_.sh" "$gitProject_" "$gitCmd_" "$gitMode_"
 	fi
 
-	
-	#echo ">gitScript_$gitProject_.sh" "$gitProject_" "$gitCmd_" "$gitMode_"
-	bash "gitScript_$gitProject_.sh" "$gitProject_" "$gitCmd_" "$gitMode_"
