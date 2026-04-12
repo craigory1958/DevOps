@@ -10,6 +10,7 @@
 	
 	if [[ -z "$gitProject_" ]]; then
 		
+		# Display eligable projects (files matcing 'gitScript_*.sh') ...
 	    echo ""
 		n=1
 		for file in "gitScript_"*".sh"; do
@@ -18,6 +19,7 @@
 		done
 	    read  -p "Project []? "  gitProject
 	
+		# Decode project selected ...
     	n=1
 		for file in "gitScript_"*".sh"; do
 		    if [[ $gitProject -eq $n ]]; then gitProject_=`printf "%s" "$file" | sed "s/gitScript_//" | sed "s/\.sh//"`; fi
