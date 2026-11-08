@@ -1,48 +1,39 @@
 #!/bin/bash
- 
- 
- 	#echo "<0[$0] 1[$1] 2[$2] 3[$3]"
-	
+
+
 	gitProject_="$1"
 	gitCmd_="$2"
 	gitMode_="$3"
-		
+
+    if [[ "$gitProject_" != "Retro-Computing" ]]; then  exit 0;  fi
+	
+	
 	gitProjectRoot_="/home/craigory1958/_cwg-base__Home"
+	gitProjectBase_="$gitProjectRoot_/Computer-Architecture/$gitProject_"
 
-
-    if [[ "$gitProject_" != "Retro-Computing" ]]; then exit 0; fi
-	
-	
-	gitProjectBase_="$gitProjectRoot_/Computer-Archetecture/$gitProject_"
-
-	gitRepos_="RetroShield_6502 SBC6502 VMK6502 XA"
+	gitRepos_="RetroShield_6502 SBC6502 VMK6502|Virtual-Memory-Kernal XA"
 
 	
-	echo ">gitScriptWorker.sh" "$gitProject_" "$gitCmd_" "$gitMode_" "$gitProjectBase_" "$gitRepos_"
-	bash "gitScriptWorker.sh" "$gitProject_" "$gitCmd_" "$gitMode_" "$gitProjectBase_" "$gitRepos_"
+	if [[ -n "$BashUtils__tr" ]]; then echo "   >gitScriptWorker.sh" "$gitProject_" "$gitCmd_" "$gitMode_" "$gitProjectBase_" "$gitRepos_" "$bashTrace"; fi
+	bash "gitScriptWorker.sh" "$gitProject_" "$gitCmd_" "$gitMode_" "$gitProjectBase_" "$gitRepos_" "$bashTrace"
 		
 			
 	if [[ "${gitCmd_^^}" == "MERGE" ]]; then 
 
 		gitProjectPath_="$gitProjectBase_/RetroShield_Carrier"
 		gitProjectGitPath_="$gitProjectBase_/RetroShield_6502/__git/RetroShield_6502/RetroShield_Carrier"
-			echo "merging RetroShield_Carrier @$gitProjectPath_ ..."
+		echo "    copying RetroShield_Carrier @$gitProjectPath_ ..."
 
 			
-		#if [[ -f "$gitProjectPath_/"*.* ]]; then
-			rsync -a  --exclude *".ignore."*  "$gitProjectPath_/"*.*  "$gitProjectGitPath_"/  2>/dev/null
-		#fi
-			
-		#if [[ -f "$gitProjectPath_/".* ]]; then
-			rsync -a  --exclude *".ignore."*  "$gitProjectPath_/".*  "$gitProjectGitPath_"/  2>/dev/null
-		#fi
+		rsync -a  --exclude *".ignore."*  "$gitProjectPath_/"*.*  "$gitProjectGitPath_"/  2>/dev/null
+		rsync -a  --exclude *".ignore."*  "$gitProjectPath_/".*  "$gitProjectGitPath_"/  2>/dev/null
 		
 		
-		for dir in "$gitProjectPath_"/*; do
+		for dir_ in "$gitProjectPath_"/*; do
 
-			if [[ -d "$dir" ]]; then
+			if [[ -d "$dir_" ]]; then
 			
-				dir_=${dir##*/}
+				dir_=${dir_##*/}
 				case $dir_ in
 			
 					"__freecad") 
